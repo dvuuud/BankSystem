@@ -9,12 +9,7 @@ class User(AbstractUser):
     phone_number = models.CharField(validators=[phone_regex], max_length=15, verbose_name='Номер телефона')
     age = models.IntegerField(default=0, verbose_name='Возраст')
     wallet_address = models.CharField(max_length=12, unique=True,blank=True ,verbose_name='ID кошелька')
-
-    def save(self, *args, **kwargs):
-        if not self.wallet_address:
-            self.wallet_address = get_random_string(length=12)
-        super().save(*args, **kwargs)
-
+    
     def __str__(self):
         return f'Пользователи'
     

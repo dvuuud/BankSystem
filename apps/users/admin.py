@@ -7,4 +7,4 @@ class AdminUser(admin.ModelAdmin):
     
 @admin.register(HistoryTransfer)
 class AdminTransfer(admin.ModelAdmin):
-    list_display = ['from_user', 'to_user', 'amount']
+    list_display = ['from_user', 'to_user', 'amount', 'created_at', 'is_completed']
