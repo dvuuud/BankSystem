@@ -25,6 +25,13 @@ class User(AbstractUser):
 class HistoryTransfer(models.Model):
     from_user = models.ForeignKey(User, related_name='transfers_sent', on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, related_name='transfers_received', on_delete=models.CASCADE)
-    is_completed = models.BooleanField(default=False, verbose_name='Отправлено в')
+    is_completed = models.BooleanField(default=False, verbose_name='Сделано')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан в')
     amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма')
+
+    def __str__(self):
+        return f'Переводы'
+    class Meta:
+        verbose_name = 'Перевод'
+        verbose_name_plural = 'Переводы'
+    
