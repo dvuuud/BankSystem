@@ -1,12 +1,16 @@
-from django.urls import path
-from .views import *
+from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView 
+from django.urls import path
+
+from .views import UserAPiViewSet, HistoryTransferViewSet
+
+router = DefaultRouter()
+router.register('users', UserAPiViewSet, basename='api_user')
+router.register('history_transfers', HistoryTransferViewSet, basename='api_history_transfers')
 
 urlpatterns = [
-    path('acces_token/', TokenObtainPairView.as_view(), name='acces'),
-    path('refresh_token/', TokenRefreshView.as_view(), name='refresh'),
-    path('users/', UserListCreateView.as_view(), name='user-list'),
-    path('users/<int:pk>/', UserDetailsView.as_view(), name='user-detail'),
-    path('transfers/', HistoryTransfers.as_view(), name='transfer-list'),
-    path('transfers/<int:pk>/', HistoryTransferView.as_view(), name='transfer-detail'),
+    path('login/', TokenObtainPairView.as_view(), name='login'),
+    path('refresh/', TokenRefreshView.as_view(), name='refresh')
 ]
+
+urlpatterns += router.urls

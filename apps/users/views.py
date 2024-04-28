@@ -1,31 +1,35 @@
-from django.shortcuts import render
-from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
-from .models import *
-from rest_framework.views import APIView
-from .serializers import *
+from rest_framework.viewsets import GenericViewSet
+from rest_framework import mixins
+from rest_framework.permissions import AllowAny, IsAuthenticated
+# My imports
+from .models import User, HistoryTransfer
+from .permissions import UserPermissions
+from .serializers import UserSerializer, HistoryTransferSerializer
 
-# Create your views here.
-class UserListCreateView(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-    def get_serializer_class(self):
-        if self.request.method == "POST":
-            return UserRegisterSerializer
-        return UserSerializer
-
-class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
+class UserAPiViewSet(GenericViewSet, 
+                     mixins.ListModelMixin,
+                     mixins.CreateModelMixin,
+                     mixins.DestroyModelMixin,
+                     mixins.UpdateModelMixin,
+                     mixins.RetrieveModelMixin):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
     
-class HistoryTransfers(generics.ListAPIView):
-    queryset = HistoryTransfer.objects.all()
-    serializer_class = HistoryTransferSerializer
-    permission_classes = [IsAuthenticated]
+    def get_permissions(self):
+        if self.action in ('update', 'partial_update', 'destroy'):
+            return (UserPermissions(),)
+        return (AllowAny(),)
     
-class HistoryTransferView(generics.RetrieveUpdateDestroyAPIView):
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class HistoryTransferViewSet(GenericViewSet,
+                             mixins.ListModelMixin,
+                             mixins.CreateModelMixin,
+                             mixins.DestroyModelMixin,
+                             mixins.UpdateModelMixin,
+                             mixins.RetrieveModelMixin):
     queryset = HistoryTransfer.objects.all()
     serializer_class = HistoryTransferSerializer
-    permission_classes = [IsAuthenticated]
