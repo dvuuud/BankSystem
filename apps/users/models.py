@@ -11,6 +11,7 @@ class User(AbstractUser):
     wallet_address = models.CharField(max_length=12,blank=True ,verbose_name='ID кошелька')
     balance = models.PositiveIntegerField(default=0, verbose_name='Баланс')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан в')
+    confirm_password = models.CharField(max_length=50, verbose_name='Подтверждения пароля')
     
     def save(self, *args, **kwargs):
         if not self.wallet_address:
@@ -36,7 +37,7 @@ class HistoryTransfer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан в')
     amount = models.PositiveIntegerField(default=0, verbose_name='Сумма')
     
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwaмrgs):
         from_user_balance = self.from_user.balance
         to_user_balance = self.to_user.balance
 
