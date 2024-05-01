@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import User, HistoryTransfer
 # Register your models here.
 @admin.register(User)
-class AdminUser(admin.ModelAdmin):
+class AdminUser(admin.ModelAdmin):  
     list_display = ['username', 'age', 'phone_number', 'wallet_address', 'balance'] 
 
     
