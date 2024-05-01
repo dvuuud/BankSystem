@@ -37,7 +37,7 @@ class HistoryTransfer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан в')
     amount = models.PositiveIntegerField(default=0, verbose_name='Сумма')
     
-    def save(self, *args, **kwaмrgs):
+    def save(self, *args, **kwargs):
         from_user_balance = self.from_user.balance
         to_user_balance = self.to_user.balance
 

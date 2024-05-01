@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     # rest
     'rest_framework',
     'rest_framework_simplejwt',
-    # jazzmin
+    
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
