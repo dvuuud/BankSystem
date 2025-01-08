@@ -2,7 +2,7 @@ import hashlib
 from rest_framework import serializers
 from django.utils.crypto import get_random_string
 from .models import User, HistoryTransfer
-
+# my serializers
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
