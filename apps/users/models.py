@@ -39,7 +39,7 @@ class HistoryTransfer(models.Model):
     
     def save(self, *args, **kwargs):            
         if self.is_completed:
-            raise ValueError("Транзакция прошла не успешна")
+            raise ValueError("Транзакция не успешна")
         
         if not self.is_completed:
             from_user_balance = self.from_user.balance
