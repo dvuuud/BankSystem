@@ -6,3 +6,4 @@ class UserPermissions(permissions.BasePermission):
         return bool(obj.pk == request.pk)
 jkdsjjsjsj
 ldkkdskdk
+kskdnskjkd
